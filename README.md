@@ -106,6 +106,46 @@ Nach wenigen Sekunden, je nach Archivgröße, sehen Sie nun eine report.json Dat
 
 ### Anzeigen der aktuell verfügbaren Takeout-Daten mittels UI Dashboard
 
+Im Frontend-Ordner liegt die Vorabversion eines Dashboards basierend auf tabler bereit.
+Dieses kann mit den Befehlen im Hauptverzeichnis sowie in /example:
+
+```
+yarn install && yarn start
+```
+
+Sie können die report.json Datei mit einem Klick auf "Upload" hochladen und dann in den Menüpunkten navigieren:
+
+
+
+#### Mobile Geräte
+
+<p align="center"> 
+<img src="https://6dl.de/tmp/mobile1.png">
+</p>
+
+
+
+#### Aktive Erweiterungen
+
+
+<p align="center"> 
+<img src="https://6dl.de/tmp/widgets.png">
+</p>
+
+
+#### Verlaufsdaten
+<p align="center"> 
+<img src="https://6dl.de/tmp/verlauf.png">
+</p>
+
+
+#### Ortsdaten
+<p align="center"> 
+<img src="https://6dl.de/tmp/maps.png">
+</p>
+
+
+
 *Inhalt folgt*
 
  

@@ -174,18 +174,18 @@ while i < len(folders):
 					
 					
 			paket_gerat.append({
-				"Android-ID": s1.split(": ")[1],
-				"MEID(s)": s2.split(": ")[1],
-				"IMEI(s)": s3.split(": ")[1],
-				"Seriennummer(n)": s4.split(": ")[1],
+				"AndroidID": s1.split(": ")[1],
+				"MEID": s2.split(": ")[1],
+				"IMEI": s3.split(": ")[1],
+				"Seriennummer": s4.split(": ")[1],
 				"Nutzer": s5.split(": ")[1],
-				"IP-Adresse": s6.split(": ")[1],
+				"IPAdresse": s6.split(": ")[1],
 				"Hardware": s7.split(": ")[1],
 				"Modell": s8.split(": ")[1],
 				"Hersteller": s9.split(": ")[1],
 				"Prozessoren": s10.split(": ")[1],
-				"Datum und Uhrzeit der Registrierung": s11.split(": ")[1],
-				"Zeitpunkt der ersten Datenverbindung": s12.split(": ")[1],
+				"Datum_Registrierung": s11.split(": ")[1],
+				"Zeitpunkt_Datenverbindung": s12.split(": ")[1],
 			})
 					
 			n += 1

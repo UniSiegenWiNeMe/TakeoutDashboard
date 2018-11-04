@@ -40,6 +40,7 @@ paket_historie_chrome = []
 paket_erweiterungen_chrome = []
 paket_orte_maps = []
 paket_youtube = []
+paket_playstore = []
 paket_verlauf_maps = []
 
 while i < len(folders):
@@ -211,6 +212,23 @@ while i < len(folders):
 				})
  				y += 1
 			
+			
+	if(folders[i] == "./Google Play Store/"):
+		with open('./Google Play Store/Order History.json') as v:
+			data = json.load(v)
+			r = 0
+			y = 0
+			while y < len(data) and r < demo_limit:
+				r = r+1
+				paket_playstore.append({
+					"orderHistory": data[y]["orderHistory"],
+				})
+ 				y += 1
+
+
+
+
+			
 	if(folders[i] == "./YouTube/"):
 		youtube_liste = []
 		youtube_files = glob("./YouTube/Playlists/*") 
@@ -314,6 +332,11 @@ json0 = {}
 
 json0["Youtube"] = paket_youtube
 thejson["Youtube"] = json0	
+
+json0 = {}
+
+json0["Orders"] = paket_playstore
+thejson["Playstore"] = json0	
 
 json0 = {}
 

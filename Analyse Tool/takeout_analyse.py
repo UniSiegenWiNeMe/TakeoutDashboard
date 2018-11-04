@@ -6,6 +6,8 @@ import json
 from pprint import pprint
 import os.path
 import sys
+import os
+
 
 
 
@@ -37,6 +39,7 @@ paket_lesezeichen_chrome = []
 paket_historie_chrome = []
 paket_erweiterungen_chrome = []
 paket_orte_maps = []
+paket_youtube = []
 paket_verlauf_maps = []
 
 while i < len(folders):
@@ -207,7 +210,34 @@ while i < len(folders):
 					"Koordinaten": data["features"][y]["geometry"]["coordinates"],
 				})
  				y += 1
-		
+			
+	if(folders[i] == "./YouTube/"):
+		youtube_liste = []
+		youtube_files = glob("./YouTube/Playlists/*") 
+		print(youtube_files)
+		for filename in youtube_files:
+			print("./------"+filename)
+			with open(filename) as v:
+				data = json.load(v)
+				r = 0
+				y = 0
+				while y < len(data) and r < demo_limit:
+					r = r+1
+					try:
+						youtube_liste.append({
+								"filename": filename.split("/")[2].split(".json")[0],
+								"contentDetails": 	data[y]["contentDetails"],
+								"description": 		data[y]["snippet"]["description"],
+								"title": 			data[y]["snippet"]["title"],
+								"thumbnails": 		data[y]["snippet"]["thumbnails"]["default"]["url"]
+						})
+					except KeyError:
+						print("Skip")
+						
+						
+					
+		 			y += 1
+		paket_youtube.append(youtube_liste)
 		
 			
 	if(folders[i] == "./Standortverlauf/"):
@@ -282,6 +312,10 @@ thejson["Maps"] = json0
 
 json0 = {}
 
+json0["Youtube"] = paket_youtube
+thejson["Youtube"] = json0	
+
+json0 = {}
 
 #print(json.dumps(json0))
 

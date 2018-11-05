@@ -40,6 +40,8 @@ const navBarItems: Array<navItem> = [
   { value: "Hardware", to: "/hardware", icon: "monitor", LinkComponent: withRouter(NavLink) },
   { value: "Browser", to: "/cards", icon: "monitor", LinkComponent: withRouter(NavLink) },
   { value: "Ortung", to: "/maps", icon: "map", LinkComponent: withRouter(NavLink) },
+  { value: "Youtube", to: "/youtube", icon: "video", LinkComponent: withRouter(NavLink) },
+  { value: "Playstore", to: "/playstore", icon: "file", LinkComponent: withRouter(NavLink) },
 
 ];
 

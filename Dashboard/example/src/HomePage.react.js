@@ -35,7 +35,7 @@ function Home() {
   return (
     <SiteWrapper>
       <Page.Content title="Dashboard">
-        <Grid.Row cards={true}>
+      <Grid.Row cards={true}>
           <Grid.Col width={6} sm={4} lg={2}>
           <div className="card card-stats">
         <div className="content">
@@ -46,41 +46,88 @@ function Home() {
           </Grid.Row>
         </div>
       </div>
+      </Grid.Col>
+
+
+          <Grid.Col width={6} sm={4} lg={2}>
+          <div className="card card-stats">
+        <div className="content">
+          <Grid.Row>
+            <Grid.Col xs={7}>
+            <div class="card-body p-3 text-center" ><div class="h1 m-0"><a href="hardware">{takeout.Meta.Geraete.length}</a></div><div class=" mb-4">Geräte</div></div>
+            </Grid.Col>
+          </Grid.Row>
+        </div>
+      </div>
+      </Grid.Col>
+
+          
+          <Grid.Col width={6} sm={4} lg={2}>
+          <div className="card card-stats">
+        <div className="content">
+          <Grid.Row>
+            <Grid.Col xs={7}>
+            <div class="card-body p-3 text-center" ><div class="h1 m-0"><a href="historie">{takeout.Chrome.Erweiterungen.length}</a></div><div class=" mb-4">Lesezeichen</div></div>
+            </Grid.Col>
+          </Grid.Row>
+        </div>
+      </div>
+      </Grid.Col>
+
+ 
+           
+ <Grid.Col width={6} sm={4} lg={2}>
+          <div className="card card-stats">
+        <div className="content">
+          <Grid.Row>
+            <Grid.Col xs={7}>
+            <div class="card-body p-3 text-center" ><div class="h1 m-0"><a href="historie">{takeout.Chrome.Historie.length}</a></div><div class=" mb-4">Internetverlauf</div></div>
+            </Grid.Col>
+          </Grid.Row>
+        </div>
+      </div>
+
+ 
+ </Grid.Col>
+
+
 
            
-          </Grid.Col>
-          <Grid.Col width={6} sm={4} lg={2}>
-            <StatsCard
-              layout={1}
-              movement={0}
-              href="/#?"
-              total={takeout.Meta.Geraete.length}
-              label="Geräte"
-            />
-          </Grid.Col>
-          <Grid.Col width={6} sm={4} lg={2}>
-            <StatsCard layout={1} movement={0} total={takeout.Chrome.Lesezeichen.length} label="Lesezeichen" />
-          </Grid.Col>
-          <Grid.Col width={6} sm={4} lg={2}>
-            <StatsCard
-              layout={1}
-              movement={0}
-              total={takeout.Chrome.Erweiterungen.length}
-              label="Plugins"
-            />
-          </Grid.Col>
-          <Grid.Col width={6} sm={4} lg={2}>
-            <StatsCard
-              layout={1}
-              movement={0}
-              total={takeout.Maps.Orte.length}
-              label="Orte"
-            />
-          </Grid.Col>
-          <Grid.Col width={6} sm={4} lg={2}>
-            <StatsCard layout={1} movement={0} total={takeout.Chrome.Historie.length} label="Internetverlauf" />
-          </Grid.Col>
-          
+           <Grid.Col width={6} sm={4} lg={2}>
+          <div className="card card-stats">
+        <div className="content">
+          <Grid.Row>
+            <Grid.Col xs={7}>
+            <div class="card-body p-3 text-center" ><div class="h1 m-0"><a href="maps">{takeout.Maps.Orte.length}</a></div><div class=" mb-4">Besuchte Orte</div></div>
+            </Grid.Col>
+          </Grid.Row>
+        </div>
+      </div>
+
+ 
+ </Grid.Col>
+
+
+
+           
+           <Grid.Col width={6} sm={4} lg={2}>
+          <div className="card card-stats">
+        <div className="content">
+          <Grid.Row>
+            <Grid.Col xs={7}>
+            <div class="card-body p-3 text-center" ><div class="h1 m-0"><a href="maps">{takeout.Maps.Verlauf.length}</a></div><div class=" mb-4">Ortsveräufe</div></div>
+            </Grid.Col>
+          </Grid.Row>
+        </div>
+      </div>
+
+ 
+ </Grid.Col>
+
+  
+ </Grid.Row>
+ <Grid.Row>
+
           
 
           <Grid.Col md={6}>
@@ -213,268 +260,8 @@ function Home() {
           
           
         </Grid.Row>
-        <Grid.Row cards deck>
-          <Grid.Col width={12}>
-            <Card>
-              <Table
-                responsive
-                highlightRowOnHover
-                hasOutline
-                verticalAlign="center"
-                cards
-                className="text-nowrap"
-              >
-                <Table.Header>
-                  <Table.Row>
-                    <Table.ColHeader alignContent="center" className="w-1">
-                      <i className="icon-people" />
-                    </Table.ColHeader>
-                    <Table.ColHeader>User</Table.ColHeader>
-                    <Table.ColHeader>Usage</Table.ColHeader>
-                    <Table.ColHeader alignContent="center">
-                      Payment
-                    </Table.ColHeader>
-                    <Table.ColHeader>Activity</Table.ColHeader>
-                    <Table.ColHeader alignContent="center">
-                      Satisfaction
-                    </Table.ColHeader>
-                    <Table.ColHeader alignContent="center">
-                      <i className="icon-settings" />
-                    </Table.ColHeader>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  <Table.Row>
-                    <Table.Col alignContent="center">
-                      <Avatar
-                        imageURL="demo/faces/female/26.jpg"
-                        className="d-block"
-                        status="green"
-                      />
-                    </Table.Col>
-                    <Table.Col>
-                      <div>Elizabeth Martin</div>
-                      <Text size="sm" muted>
-                        Registered: Mar 19, 2018
-                      </Text>
-                    </Table.Col>
-                    <Table.Col>
-                      <div className="clearfix">
-                        <div className="float-left">
-                          <strong>42%</strong>
-                        </div>
-                        <div className="float-right">
-                          <Text.Small muted>
-                            Jun 11, 2015 - Jul 10, 2015
-                          </Text.Small>
-                        </div>
-                      </div>
-                      <Progress size="xs">
-                        <Progress.Bar color="yellow" width={42} />
-                      </Progress>
-                    </Table.Col>
-                    <Table.Col alignContent="center">
-                      <Icon payment name="visa" />
-                    </Table.Col>
-                    <Table.Col>
-                      <Text size="sm" muted>
-                        Last login
-                      </Text>
-                      <div>4 minutes ago</div>
-                    </Table.Col>
-                    <Table.Col alignContent="center">42%</Table.Col>
-                    <Table.Col alignContent="center">
-                      <Dropdown
-                        trigger={
-                          <Dropdown.Trigger
-                            icon="more-vertical"
-                            toggle={false}
-                          />
-                        }
-                        position="right"
-                        items={
-                          <React.Fragment>
-                            <Dropdown.Item icon="tag">Action </Dropdown.Item>
-                            <Dropdown.Item icon="edit-2">
-                              Another action{" "}
-                            </Dropdown.Item>
-                            <Dropdown.Item icon="message-square">
-                              Something else here
-                            </Dropdown.Item>
-                            <Dropdown.ItemDivider />
-                            <Dropdown.Item icon="link">
-                              {" "}
-                              Separated link
-                            </Dropdown.Item>
-                          </React.Fragment>
-                        }
-                      />
-                    </Table.Col>
-                  </Table.Row>
-                </Table.Body>
-              </Table>
-            </Card>
-          </Grid.Col>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Col sm={6} lg={4}>
-            <Card title="Browser Stats">
-              <Table className="card-table">
-                <Table.Row>
-                  <Table.Col>
-                    <Icon prefix="fa" name="chrome" className="text-muted" />
-                  </Table.Col>
-                  <Table.Col>Google Chrome</Table.Col>
-                  <Table.Col className="text-right">
-                    <Text RootComponent="span" muted>
-                      23%
-                    </Text>
-                  </Table.Col>
-                </Table.Row>
-              </Table>
-            </Card>
-          </Grid.Col>
-          <Grid.Col sm={6} lg={4}>
-            <Card title="Projects">
-              <Table cards>
-                <Table.Row>
-                  <Table.Col>Admin Template</Table.Col>
-                  <Table.Col alignContent="right">
-                    <Badge color="default">65%</Badge>
-                  </Table.Col>
-                </Table.Row>
-              </Table>
-            </Card>
-          </Grid.Col>
-          <Grid.Col md={6} lg={4}>
-            <Card title="Members">
-              <Card.Body>
-                <ul className="list-unstyled list-separated">
-                  <li className="list-separated-item">
-                    <Grid.Row className="align-items-center">
-                      <Grid.Col auto>
-                        <Avatar
-                          size="md"
-                          className="d-block"
-                          imageURL="demo/faces/female/12.jpg"
-                        />
-                      </Grid.Col>
-                      <Grid.Col>
-                        <div>
-                          <a className="text-inherit">Amanda Hunt</a>
-                        </div>
-                        <Text.Small muted className="d-block item-except h-1x">
-                          amanda_hunt@example.com
-                        </Text.Small>
-                      </Grid.Col>
-                      <Grid.Col auto>
-                        <Dropdown
-                          trigger={
-                            <Dropdown.Trigger
-                              icon="more-vertical"
-                              toggle={false}
-                            />
-                          }
-                          position="right"
-                          items={
-                            <React.Fragment>
-                              <Dropdown.Item icon="tag">Action </Dropdown.Item>
-                              <Dropdown.Item icon="edit-2">
-                                {" "}
-                                Another action{" "}
-                              </Dropdown.Item>
-                              <Dropdown.Item icon="message-square">
-                                {" "}
-                                Something else here
-                              </Dropdown.Item>
-                              <Dropdown.ItemDivider />
-                              <Dropdown.Item icon="link">
-                                {" "}
-                                Separated link
-                              </Dropdown.Item>
-                            </React.Fragment>
-                          }
-                        />
-                      </Grid.Col>
-                    </Grid.Row>
-                  </li>
-                </ul>
-              </Card.Body>
-            </Card>
-          </Grid.Col>
- 
-          <Grid.Col width={12}>
-            <Card title="Invoices">
-              <Table
-                responsive
-                className="card-table table-vcenter text-nowrap"
-                headerItems={[
-                  { content: "No.", className: "w-1" },
-                  { content: "Invoice Subject" },
-                  { content: "Client" },
-                  { content: "VAT No." },
-                  { content: "Created" },
-                  { content: "Status" },
-                  { content: "Price" },
-                  { content: null },
-                  { content: null },
-                ]}
-                bodyItems={[
-                  {
-                    key: "1",
-                    item: [
-                      {
-                        content: (
-                          <Text RootComponent="span" muted>
-                            001401
-                          </Text>
-                        ),
-                      },
-                      {
-                        content: (
-                          <a href="invoice.html" className="text-inherit">
-                            Design Works
-                          </a>
-                        ),
-                      },
-                      { content: "Carlson Limited" },
-                      { content: "87956621" },
-                      { content: "15 Dec 2017" },
-                      {
-                        content: (
-                          <React.Fragment>
-                            <span className="status-icon bg-success" /> Paid
-                          </React.Fragment>
-                        ),
-                      },
-                      { content: "$887" },
-                      {
-                        alignContent: "right",
-                        content: (
-                          <React.Fragment>
-                            <Button size="sm" color="secondary">
-                              Manage
-                            </Button>
-                            <div className="dropdown">
-                              <Button
-                                color="secondary"
-                                size="sm"
-                                isDropdownToggle
-                              >
-                                Actions
-                              </Button>
-                            </div>
-                          </React.Fragment>
-                        ),
-                      },
-                      { content: <Icon link name="edit" /> },
-                    ],
-                  },
-                ]}
-              />
-            </Card>
-          </Grid.Col>
-        </Grid.Row>
+        
+        
       </Page.Content>
     </SiteWrapper>
   );

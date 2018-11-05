@@ -13,6 +13,7 @@ import {
   Empty,
   Email,
   ProfilePage,
+  Playstore
 } from "./pages";
 
 import HomePage from "./HomePage.react";
@@ -53,10 +54,12 @@ function App(props: Props): React.Node {
           <Route exact path="/icons" component={IconPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/maps" component={MapCardsPage} />
+          <Route exact path="/youtube" component={Empty} />
           <Route exact path="/pricing-cards" component={PricingCardsPage} />
           <Route exact path="/profile" component={ProfilePage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/historie" component={StoreCardsPage} />
+          <Route exact path="/playstore" component={Playstore} />
           <Route component={Error404} />
         </Switch>
       </Router>

@@ -10,6 +10,8 @@ import Map from 'pigeon-maps'
 import Marker from 'pigeon-marker'
 import Overlay from 'pigeon-overlay'
 
+ 
+
 import {
   Container,
   Page,
@@ -22,18 +24,16 @@ import {
 
 import SiteWrapper from "../SiteWrapper.react";
 
-import GoogleMap from "../GoogleMap";
 
 import ReactSimpleMap from "../ReactSimpleMap";
 
 
 
 
-
-
+ 
 
 function MapCardsPage(): React.Node {
-  return (
+   return (
     <SiteWrapper>
             <div className="my-md-12">
 
@@ -43,7 +43,7 @@ function MapCardsPage(): React.Node {
         <Container>
         <div class="col col-md-6 col-lg-6" style={float} ><div class="card"><div class="card-header"><h3 class="card-title">Meine Orte</h3></div> 
   
-  <Map center={mpos} zoom={12} width={562} height={400}>
+  <Map center={mpos} zoom={6} width={562} height={400}>
     <Marker anchor={mpos} payload={1} onClick={({ event, anchor, payload }) => {}} />
 
     <Overlay anchor={mpos} offset={[120, 79]}>
@@ -60,7 +60,7 @@ function MapCardsPage(): React.Node {
 
         <div class="col col-md-6 col-lg-6" style={float} ><div class="card"><div class="card-header"><h3 class="card-title">Mein Verlauf</h3></div> 
   
-  <Map center={mpos2} zoom={12} width={562} height={400}>
+  <Map center={mpos2} zoom={6} width={562} height={400}>
     <Marker anchor={mpos2} payload={1} onClick={({ event, anchor, payload }) => {}} />
 
     <Overlay anchor={mpos2} offset={[120, 79]}>
@@ -89,33 +89,42 @@ function MapCardsPage(): React.Node {
 }
 
 var mpos = [50.879, 4.6997];
-var mpos2 = [50.879, 4.6997];
 
-// function findGetParameter(parameterName) {
-//   var result = null,
-//       tmp = [];
-//   location.search
-//       .substr(1)
-//       .split("&")
-//       .forEach(function (item) {
-//         tmp = item.split("=");
-//         if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-//       });
-//   return result;
-// }
-
-
-// if(findGetParameter("x")) {
-//   mpos = [findGetParameter("x"), findGetParameter("y")];
-// }
-
-// const parsed = qs.parse(this.props.location.search);
-// console.log(parsed);
-
-
-function setMap1(d) {
-  mpos = d
+try {
+  var x = window.location.search.split("x=")[1].split("&")[0];
+  var y = window.location.search.split("y=")[1].split("&")[0];
+}catch(e) {
+  var x = 50.879;
+  var y = 4.6997;
 }
+
+
+try {
+  var x2 = window.location.search.split("x2=")[1].split("&")[0];
+  var y2 = window.location.search.split("y2=")[1].split("&")[0];
+}catch(e) {
+  var x2 = 50.879;
+  var y2 = 4.6997;
+}
+
+
+if(x) {
+  if(y < 0) {
+    y = y *-1;
+  }
+   mpos = [x, y];
+}
+
+var mpos2 = [50.879, 4.6997]; 
+
+if(x2) {
+  if(y2 < 0) {
+    y2 = y2 *-1;
+  }
+   mpos2 = [x2, y2];
+}
+
+
 
 const float = {
   float: 'left',
@@ -163,13 +172,22 @@ if("Takeout" in localStorage){
   console.log("Verlauf", takeout.Maps.Verlauf);
 
   takeout.Maps.Orte.map(function(P, i){
+    var y = P.Koordinaten[0];
+    if(y < 0) {
+      y = y * -1;
+    }
     html += '<li class="timeline-item"><div class="timeline-badge bg-blue"></div><div><strong>'+P.Titel+'</strong><small class="d-block text-muted">';
-    html += '<a href="?x='+P.Koordinaten[1]+'&y='+P.Koordinaten[0]+'"> GO </a>  '+P.Koordinaten[1]+'/'+P.Koordinaten[0]+'  </small></div>';
+    html += '<a href="?x='+P.Koordinaten[1]+'&y='+y+'"> GO </a>  '+P.Koordinaten[1]+'/'+P.Koordinaten[0]+'  </small></div>';
     html += '<div class="timeline-time text-muted-black">'+dateConvert(P.Published)+'</div></li>';
   }) 
 
   takeout.Maps.Verlauf.map(function(P, i){
-    html2 += '<li class="timeline-item"><div class="timeline-badge bg-blue"></div><div><strong>Unbekannt</strong><small class="d-block text-muted"> '+P.lat+'/'+P.lon+' </small></div><div class="timeline-time text-muted-black">'+unix(P.Zeitpunkt)+'</div></li>';
+    var x = P.lat.toString().substr(0,P.lat.toString().length - 7) + "." +P.lat.toString().substr(P.lat.toString().length - 7);
+    var y = P.lon.toString().substr(0,P.lat.toString().length - 7) + "." + P.lon.toString().substr(P.lat.toString().length - 7);
+    if(y < 0) {
+      y = y * -1;
+    }
+    html2 += '<li class="timeline-item"><div class="timeline-badge bg-blue"></div><div><strong>Unbekannt</strong><small class="d-block text-muted"> <a href="?x2='+x+'&y2='+y+'"> GO </a> '+x+'/'+y+' </small></div><div class="timeline-time text-muted-black">'+unix(P.Zeitpunkt)+'</div></li>';
   }) 
 
 

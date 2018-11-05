@@ -20,7 +20,8 @@
     "react-scripts": "^2.0.3",
     "react-simple-maps": "^0.12.0",
     "react-syntax-highlighter": "^9.0.0",
-    "tabler-react": "^1.21.2"
+    "tabler-react": "^1.21.2",
+    "url-search-params": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

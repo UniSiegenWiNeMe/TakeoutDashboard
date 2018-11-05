@@ -11,7 +11,7 @@ import { Page, Grid, StoreCard, Table, Card, Badge, Avatar,  colors,
 import SiteWrapper from "../SiteWrapper.react";
 import C3Chart from "react-c3js";
 
-function StoreCardsPage(): React.Node {
+function Playstore(): React.Node {
   return (
     <SiteWrapper>
       <Page.Content title="Historie">
@@ -19,14 +19,9 @@ function StoreCardsPage(): React.Node {
           <Grid.Col lg={3}>
           <div class="card">
   <div class="card-header">
-    <h3 class="card-title">Verschlüsselte Verbindungen</h3>
+    <h3 class="card-title">Kauftypen</h3>
   </div>
   <div class="card-body">
-
-
-
-
-
   <C3Chart
                       style={{ height: "12rem" }}
                       data={{
@@ -35,11 +30,13 @@ function StoreCardsPage(): React.Node {
                         colors: {
                           data1: colors["red"],
                           data2: colors["green"],
+                          data3: colors["yellow"],
                         },
                         names: {
                           // name of each serie
-                          data1: "unverschlüsselt",
-                          data2: "verschlüsselt",
+                          data1: "in-App",
+                          data2: "Android Apps",
+                          data3: "Book",
                         },
                       }}
                       legend={{
@@ -51,21 +48,12 @@ function StoreCardsPage(): React.Node {
                       }}
                     />
   </div>
-  <div class="card-footer">
-    Es werden überwiegend gesicherte Verbindungen benutzt
-  </div>
 </div>
 
 
 
           </Grid.Col>
-          <Grid.Col lg={9}>
-
-                    <div id="html">{Parser(html)}</div>
-</Grid.Col>
-
-          <Grid.Col lg={3}>
-</Grid.Col>
+         
           <Grid.Col lg={9}>
             
             
@@ -81,8 +69,9 @@ function StoreCardsPage(): React.Node {
  
 var cd = [
   // each columns data
-  ["data1", 50],
-  ["data2", 50],
+  ["data1", 33],
+  ["data2", 33],
+  ["data3", 33],
 ];
 
 
@@ -107,18 +96,23 @@ function check(url) {
 
 var a = 0;
 var b = 0;
+var c = 0;
 function chartadd(type) {
-  if(type.split("//")[0] == "http:") {
+  if(type == "In App Item") {
   a++
   }
-  if(type.split("//")[0] == "https:") {
+  if(type == "Android Apps") {
 b++
   }
+  if(type == "Book") {
+    c++
+      }
 
   cd = [
     // each columns data
     ["data1", a],
     ["data2", b],
+    ["data3", c],
   ];
 
 
@@ -128,33 +122,21 @@ var html = "";
 var html2 = "";
 if("Takeout" in localStorage){
   var takeout = JSON.parse(localStorage.getItem("Takeout"));
-  console.log(takeout.Chrome.Historie);
-  html += '<div class="col col-md-12 col-xl-12" style="float:left;width:100%;height:250px;">';
-  html += '<div class="card"><div class="card-header"><h3 class="card-title">Lesezeichen</h3>';
-  html += '<div class="card-options"></a>';
-  html += '<a class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a></div></div>';
-  html += '<div class="card-body">';
-  html += '<p style="text-align:center"></p>';
-
-  takeout.Chrome.Lesezeichen.map(function(P, i){
-    chartadd(P.url);
-    placeWidget(P);
- }) 
-
- html += '</div>';
- html += '<div class="card-footer"> </div></div></div>';
 
 
-html2 += '<div class="col col-lg-12"><div class="card"><div class="table-responsive"><table class="table card-table table-striped table-vcenter"><thead class=""><tr class=""><th class="" colspan="2">Titel</th><th class="">URL</th><th class="">Aufgerufen am</th><th class=""></th></tr></thead><tbody class="">';
+  
 
 
+html2 += '<div class="col col-lg-12"><div class="card"><div class="table-responsive">';
+html2 += '<table class="table card-table table-striped table-vcenter"><thead class="">';
+html2 += '<tr class=""><th class="" colspan="2">Titel</th><th class="">Typ</th><th class="">Aufgerufen am</th><th class="">Rechnung auf</th><th class="">Preis</th><th class=""></th></tr>';
+html2 += '</thead><tbody class="">';
 
 
- takeout.Chrome.Historie.map(function(P, i){
-
+ takeout.Playstore.Orders.map(function(P, i){
   placeWidgetHistorie(P);
 }) 
-html2 += '</tbody></table></div></div></div>';
+html2 += '</tbody></table></div></div>';
 
 } else {
  
@@ -174,23 +156,24 @@ function unix(UNIX_timestamp){
   var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min  ;
   return time;
 }
+
+function gtime(t) {
+  return t.split("-")[2].split("T")[0] + "." +  t.split("-")[1] + "." + t.split("-")[0] + " um " + t.split("T")[1].split(":")[0] + ":" + t.split("T")[1].split(":")[1]
+}
+
  
 function placeWidget(P) {
-  
-
   html += '<p style="margin:0px;float:left"><b><img style="height:16px;float:left" src="http://'+P.url.split("/")[2]+'/favicon.ico"></b></p><p style="text-align:right;margin:0px;"> <a href="'+P.url+'">'+P.beschreibung+'</a></p>';
-
-
 }
+
 function placeWidgetHistorie(P) {
+  chartadd(P.orderHistory.doc.documentType) 
+
   html2 += '<tr class=""><td class="w-1">';
-  html2 += '<span class="avatar" style="background-image: url(&quot;http://'+P.Link.split("/")[2]+'/favicon.ico&quot;)"></span></td>';
-  html2 += '<td class="">'+P.Titel+'</td><td class="">'+P.Link+'</td><td class="text-nowrap"> '+unix(P.Zeitpunkt)+' </td>';
+  html2 += '<span class="avatar"></span></td>';
+  html2 += '<td class="">'+P.orderHistory.doc.title+'</td><td class="">'+P.orderHistory.doc.documentType+'</td><td class="text-nowrap"> '+gtime(P.orderHistory.creationTime)+' </td><td class="">'+P.orderHistory.billingContact.name+'</td><td class="">'+P.orderHistory.totalPrice+'</td>';
   html2 += '<td class="w-1"><a class="icon"></a></td></tr>';
 }
 
-
-
-
  
-export default StoreCardsPage;
+export default Playstore;

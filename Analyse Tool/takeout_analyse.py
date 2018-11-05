@@ -37,6 +37,7 @@ paket_identitat_chrome = []
 paket_gerat = []
 paket_lesezeichen_chrome = []
 paket_historie_chrome = []
+paket_eye = []
 paket_erweiterungen_chrome = []
 paket_orte_maps = []
 paket_youtube = []
@@ -105,6 +106,22 @@ while i < len(folders):
 						"Link": data["Browser History"][z].get("url"), 
 						"Zeitpunkt": data["Browser History"][z].get("time_usec"), 
 						"Client": data["Browser History"][z].get("client_id"), 
+					})
+		 			z += 1
+					 
+		if os.path.isfile('./Standortverlauf/Standortverlauf.json') :
+			with open('./Standortverlauf/Standortverlauf.json') as f:
+				data = json.load(f)
+				r = 0
+				z = 0
+				while z < len(data["locations"]) and r < 1000:
+					r = r+1
+					paket_eye.append({
+						"timestampMs": data["locations"][z].get("timestampMs"), 
+						"longitudeE7": data["locations"][z].get("longitudeE7"), 
+						"latitudeE7": data["locations"][z].get("latitudeE7"), 
+						"accuracy": data["locations"][z].get("accuracy"), 
+					
 					})
 		 			z += 1
 		
@@ -196,21 +213,22 @@ while i < len(folders):
 			
 			
 	if(folders[i] == "./Maps (meine Orte)/"):
-		with open('./Maps (meine Orte)/Gespeicherte Orte.json') as v:
-			data = json.load(v)
-			r = 0
-			y = 0
-			if(enable_logs):
-				print len(data["features"])
-			while y < len(data["features"]) and r < demo_limit:
-				r = r+1
-				paket_orte_maps.append({
+		if os.path.exists("./Maps (meine Orte)/Gespeicherte Orte.json"):
+			with open('./Maps (meine Orte)/Gespeicherte Orte.json') as v:
+				data = json.load(v)
+				r = 0
+				y = 0
+				if(enable_logs):
+					print len(data["features"])
+				while y < len(data["features"]) and r < demo_limit:
+					r = r+1
+					paket_orte_maps.append({
 					"Titel": data["features"][y]["properties"]["Title"],
 					"Published": data["features"][y]["properties"]["Published"],
 					"Updated": data["features"][y]["properties"]["Updated"],
 					"Koordinaten": data["features"][y]["geometry"]["coordinates"],
-				})
- 				y += 1
+					})
+ 					y += 1
 			
 			
 	if(folders[i] == "./Google Play Store/"):
@@ -325,6 +343,7 @@ thejson["Meta"] = json0
 json0 = {}
 json0["Orte"] = paket_orte_maps
 json0["Verlauf"] = paket_verlauf_maps
+json0["Eye"] = paket_eye
 
 thejson["Maps"] = json0	
 

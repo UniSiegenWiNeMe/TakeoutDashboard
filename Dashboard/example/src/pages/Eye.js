@@ -12,6 +12,12 @@ import Parser from "html-react-parser";
 import SiteWrapper from "../SiteWrapper.react";
 import C3Chart from "react-c3js";
 
+
+var mylocations = [];
+var myCitys = [];
+
+var html2 = "";
+var html3 = "";
 /* global google */
 function Eye(): React.Node {
   if ("Takeout" in localStorage) {
@@ -119,7 +125,24 @@ function Eye(): React.Node {
           </Grid.Row>
           <Grid.Row>
             <Grid.Col lg={12}>
+            <table class="table card-table table-striped table-vcenter"><thead class=""> 
+                 <tr class=""><th class="" colspan="2">Koordinaten</th> <th class="">Ort</th>  </tr> 
+                 </thead><tbody class=""> 
+
+              <div id="html3">{Parser(html3)}</div>
+
+               </tbody></table>
+
+               
+            </Grid.Col>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Col lg={12}>
+              
+
               <div id="html2">{Parser(html2)}</div>
+
+             
             </Grid.Col>
           </Grid.Row>
         </Page.Content>
@@ -161,27 +184,8 @@ function check(url) {
 var a = 0;
 var b = 0;
 var c = 0;
-function chartadd(type) {
-  if (type == "In App Item") {
-    a++;
-  }
-  if (type == "Android Apps") {
-    b++;
-  }
-  if (type == "Book") {
-    c++;
-  }
+ 
 
-  cd = [
-    // each columns data
-    ["data1", a],
-    ["data2", b],
-    ["data3", c]
-  ];
-}
-
-var html = "";
-var html2 = "";
 
 if ("Takeout" in localStorage) {
   var takeout = JSON.parse(localStorage.getItem("Takeout"));
@@ -264,10 +268,77 @@ function gtime(t) {
   return t.split("-")[2].split("T")[0] + "." + t.split("-")[1] + "." + t.split("-")[0] + " um " + t.split("T")[1].split(":")[0] + ":" + t.split("T")[1].split(":")[1];
 }
 
+ 
+ 
+
+
+function checkifExists(obj,list) {
+  console.log(list);
+
+  for(var i = 0; i < list.length; i++) {
+    if(list[i].x == obj) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+function checkifExistsCity(obj) {
+ console.log(obj);
+   for(var i = 0; i < myCitys.length; i++) {
+    if(myCitys[i] == obj) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
 function placeWidgetHistorie(P) {
   var long = P.longitudeE7;
   var lat = P.latitudeE7;
   var time = P.timestampMs;
+
+  var long_3 = parseFloat(coord(long)).toFixed(2)
+  var lat_3 = parseFloat(coord(lat)).toFixed(2)
+
+ if(!checkifExists(long_3, mylocations)) {
+        mylocations.push({x: long_3, y: lat_3});
+    
+        
+          fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDY5mF8ZE3NoBuqzMJqmK80a-KM33iGffk&latlng='+lat_3+','+long_3)
+          .then(response => {
+            if (response.ok) {
+              
+
+
+              return response.json();
+            } else {
+              throw new Error('Something went wrong ...');
+            }
+          }).then(data => {
+
+            if(!checkifExistsCity(data.plus_code.compound_code.split(" ")[1])) {
+              myCitys.push(data.plus_code.compound_code.split(" ")[1]);
+              console.log("add_city", data.plus_code.compound_code.split(" ")[1]);
+
+              
+            }
+            
+
+
+           });
+        
+
+
+
+
+
+ }
+  // if (!mylocations.filter(function(e) { return e.x === long_3; }).length > 0) {
+  //   mylocations.push({x: long_3, y: lat_3});
+  // }
 
   html2 += '<tr class=""><td class="w-1">';
   html2 += '<span class="avatar"></span></td>';
@@ -275,8 +346,35 @@ function placeWidgetHistorie(P) {
   html2 += " </tr>";
 }
 
+setTimeout(function(){ 
+  var txt = "";
+  txt += " Folgende Orte besuchten Sie: \n  "
+
+  for(var i = 0; i < myCitys.length; i++) {
+    console.log("City: ", myCitys[i])
+    html3 += '<tr class=""> ';
+              html3 += '<td class="">' + myCitys[i] +'</td>  ';
+              html3 += " </tr>";
+              txt += ""+myCitys[i]+"\n"
+  }
+  alert(txt)
+}, 3000);
+
+
 function coord(x) {
   return x.toString().substr(0, x.toString().length - 7) + "." + x.toString().substr(x.toString().length - 7);
 }
+
+function containsObject(obj, list) {
+  var i;
+  for (i = 0; i < list.length; i++) {
+      if (list[i].x === obj) {
+          return true;
+      }
+  }
+
+  return false;
+}
+
 
 export default Eye;

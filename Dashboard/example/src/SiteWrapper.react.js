@@ -42,6 +42,7 @@ const navBarItems: Array<navItem> = [
   { value: "Ortung", to: "/maps", icon: "map", LinkComponent: withRouter(NavLink) },
   { value: "Youtube", to: "/youtube", icon: "video", LinkComponent: withRouter(NavLink) },
   { value: "Playstore", to: "/playstore", icon: "file", LinkComponent: withRouter(NavLink) },
+  { value: "Eye", to: "/eye", icon: "eye", LinkComponent: withRouter(NavLink) },
 
 ];
 
@@ -80,10 +81,15 @@ const notificationsObjects = [
 var accountDropdownProps = {};
 if("Takeout" in localStorage){
   var takeout = JSON.parse(localStorage.getItem("Takeout"));
-
+  var vorname = "Max";
+  var nachname = "Müller";
+  if(takeout.Chrome.Person[0]) {
+    vorname = takeout.Chrome.Person[0].vorname;
+    nachname = takeout.Chrome.Person[0].nachname;
+  }
    accountDropdownProps = {
     avatarURL: "./demo/faces/female/25.jpg",
-    name: takeout.Chrome.Person[0].vorname + ", " + takeout.Chrome.Person[0].nachname,
+    name:  vorname + ", " +  nachname,
     description: "Takeout-Identität",
     options: [
       { icon: "user", value: "Profile" },
@@ -124,9 +130,8 @@ class SiteWrapper extends React.Component<Props, void> {
     var reader = new FileReader();
     reader.onload = function(e) {
     // Use reader.result
-    alert(reader.result);
     localStorage.setItem('Takeout', reader.result);
-
+    window.location.reload();
     }
     reader.readAsText(files[0]);
     }
@@ -164,10 +169,7 @@ class SiteWrapper extends React.Component<Props, void> {
   <button className='btn'>Upload</button>
 </ReactFileReader>
 
-
-              <Button onClick={_onBackClick}>
-  Upload Takeout
-</Button>
+ 
             </Nav.Item>
           ),
           notificationsTray: { notificationsObjects },

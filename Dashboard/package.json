@@ -41,6 +41,7 @@
     "pigeon-overlay": "^0.2.2",
     "query-string": "^6.2.0",
     "react-google-maps": "^9.4.5",
+    "react-native-maps": "^0.22.0",
     "react-popper": "^1.0.0-beta.6",
     "react-query-params": "^1.0.9",
     "react-text-mask": "^5.4.1"

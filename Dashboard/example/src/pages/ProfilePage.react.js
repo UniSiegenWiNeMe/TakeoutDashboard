@@ -2,6 +2,7 @@
 
 import React from "react";
 import Parser from 'html-react-parser';
+import { Redirect } from 'react-router-dom'
 
 import {
   Container,
@@ -78,12 +79,30 @@ function ProfilePage() {
         // }
 
     
+        if ("Takeout" in localStorage) {
 
   return (
     <SiteWrapper>
+
+
+     
+
+
       <div className="my-3 my-md-5">
         <Container>
-
+        <Grid.Row cards={true}>
+            <Grid.Col width={12} sm={12} lg={12}>
+              <div className="card card-stats">
+                <div className="content">
+                  <Grid.Row>
+                    <Grid.Col >
+                      <div class="card-body p-3 text-center"> Hier werden alle gefundenen Identitäten gelistet. Die sichtbaren Adressen können zum Beispiel von Lieferadressen in Onlineshops stammen. Google speichert diese, um diese Daten bei der nächsten Bestellung in einem anderen Shop im Browser vorzuschlagen. Diese Daten werden nicht nur offline gespeichert.  </div>
+                    </Grid.Col>
+                  </Grid.Row>
+                </div>
+              </div>
+            </Grid.Col>
+          </Grid.Row>
   
 {Parser(identitys)}
               <Grid.Row>
@@ -100,6 +119,13 @@ function ProfilePage() {
       </div>
     </SiteWrapper>
   );
+        }
+
+        else {
+          return (
+            <Redirect to='/' />
+          );
+        }
 }
 
 export default ProfilePage;

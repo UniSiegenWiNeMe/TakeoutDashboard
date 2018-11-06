@@ -13,7 +13,8 @@ import {
   Empty,
   Email,
   ProfilePage,
-  Playstore
+  Playstore,
+  Eye
 } from "./pages";
 
 import HomePage from "./HomePage.react";
@@ -60,6 +61,7 @@ function App(props: Props): React.Node {
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/historie" component={StoreCardsPage} />
           <Route exact path="/playstore" component={Playstore} />
+          <Route exact path="/eye" component={Eye} />
           <Route component={Error404} />
         </Switch>
       </Router>

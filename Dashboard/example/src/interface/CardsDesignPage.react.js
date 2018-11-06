@@ -2,15 +2,34 @@
 
 import * as React from "react";
 import Parser from 'html-react-parser';
+import { Redirect } from 'react-router-dom'
 
 import { Page, Grid, Card, Button, Form, Dimmer } from "tabler-react";
 
 import SiteWrapper from "../SiteWrapper.react";
 
 function CardsDesignPage(): React.Node {
+  if ("Takeout" in localStorage) {
+
   return (
     <SiteWrapper>
+
       <Page.Content>
+      <Grid.Row cards={true}>
+            <Grid.Col width={12} sm={12} lg={12}>
+              <div className="card card-stats">
+                <div className="content">
+                  <Grid.Row>
+                    <Grid.Col >
+                      <div class="card-body p-3 text-center"> Google weiß welche Erweiterungen Sie in Ihrem Browser nutzen und welche Sie installiert, aber deaktiviert haben. Vom Video Converter über der Adblocker bis zu möglicherweise zwielichtigen Erweiterungen ist alles kein Geheimnis.  </div>
+                    </Grid.Col>
+                  </Grid.Row>
+                </div>
+              </div>
+            </Grid.Col>
+          </Grid.Row>
+
+
         <Grid.Row>
           <div id="html">{Parser(html)}</div>
  
@@ -20,6 +39,13 @@ function CardsDesignPage(): React.Node {
       </Page.Content>
     </SiteWrapper>
   );
+  }
+  else {
+    return (
+      <Redirect to='/' />
+
+    );
+  }
 }
 
 

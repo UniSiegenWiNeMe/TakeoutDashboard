@@ -130,7 +130,7 @@ function Home() {
                 <div className="content">
                   <Grid.Row>
                     <Grid.Col xs={7}>
-                      <div class="card-body p-3 text-center"> Es liegen keine Daten vor. Laden Sie bitte einen Report mit Klick auf "Upload". Sie können den beiliegenden Report benutzen. </div>
+                      <div class="card-body p-3 text-center"> Es liegen keine Daten vor. Laden Sie bitte einen Report mit Klick auf "Upload". Sie können den beiliegenden Report benutzen. <button onClick={demodaten}>Demo-Daten</button>    </div>
                     </Grid.Col>
                   </Grid.Row>
                 </div>
@@ -140,6 +140,12 @@ function Home() {
         </Page.Content>
       </SiteWrapper>
     );
+  }
+
+
+  function demodaten() {
+    window.location.href = "https://6dl.de/demo.zip";
+   // window.location.href = "https://dl.uni-siegen.tk/demo.zip";
   }
 }
 
